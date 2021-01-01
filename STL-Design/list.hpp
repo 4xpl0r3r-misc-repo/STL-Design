@@ -18,7 +18,7 @@ template<typename T>
 class list{
     class listNode;
     class iterator;
-    listNode* head,tail;//head是空节点，不使用
+    listNode *head,*tail;//head是空节点，不使用
 public:
     list();
     list(const list& tar);
@@ -31,8 +31,8 @@ public:
     
     void push_back(const T&);
     
-    iterator begin();
-    iterator end();
+    iterator begin()const;
+    iterator end()const;
     
     int size();
 };
@@ -41,10 +41,10 @@ template<typename T>
 class list<T>::listNode{
     T v;
 public:
-    listNode* forward=NULL,next=NULL;
+    listNode *forward=NULL,*next=NULL;
     
-    T& operator*()const;
-    listNode(const T& v,listNode* forward=NULL,listNode* next=NULL);
+    T& operator*();
+    listNode(const T& v=0,listNode* forward=NULL,listNode* next=NULL);
     listNode(const listNode& tar,listNode* forward=NULL,listNode* next=NULL);
     //隐式析构,省略
     //隐式声明等于号=
@@ -60,11 +60,14 @@ public:
     void operator=(list<T>::listNode* addr);
     void operator=(const iterator& tar);
     
-    T operator*()const;
+    bool operator==(const iterator& tar)const;
+    bool operator!=(const iterator& tar)const;
+    
+    T operator*();
     void operator++();
     void operator--();
-    iterator operator+();
-    iterator operator-();
+    iterator operator+(int steps)const;
+    iterator operator-(int steps)const;
 };
 
 /*-------------declearation above-------------*/
@@ -77,7 +80,7 @@ list<T>::list(){
 template<typename T>
 list<T>::list(const list& tar){
     tail=head=new list<T>::listNode();
-    for (auto it=tar.begin(); it!=tar.end(); it++) {
+    for (auto it=tar.begin(); it!=tar.end(); ++it) {
         tail->next=new list<T>::listNode(*it,tail);
         tail=tail->next;
     }
@@ -129,12 +132,12 @@ void list<T>::push_back(const T& v){
 }
 
 template<typename T>
-typename list<T>::iterator list<T>::begin(){
+typename list<T>::iterator list<T>::begin()const{
     return head+1;
 }
 
 template<typename T>
-typename list<T>::iterator list<T>::end(){
+typename list<T>::iterator list<T>::end()const{
     return tail;
 }
 
@@ -146,7 +149,7 @@ int list<T>::size(){
 }
 
 template<typename T>
-T& list<T>::listNode::operator*()const{
+T& list<T>::listNode::operator*(){
     return v;
 }
 
@@ -185,30 +188,43 @@ void list<T>::iterator::operator=(const iterator& tar){
 }
 
 template<typename T>
-T list<T>::iterator::operator*()const{
+T list<T>::iterator::operator*(){
     return **ptr;
 }
 
 template<typename T>
 void list<T>::iterator::operator++(){
-    
+    ptr=ptr->next;
 }
 
 template<typename T>
 void list<T>::iterator::operator--(){
-    
+    ptr=ptr->forward;
 }
 
 template<typename T>
-typename list<T>::iterator list<T>::iterator::operator+(){
-    
+typename list<T>::iterator list<T>::iterator::operator+(int steps)const{
+    auto tmp=ptr;
+    for(;steps>0;steps--)ptr=ptr->next;
+    return list<T>::iterator(tmp);
 }
 
 template<typename T>
-typename list<T>::iterator list<T>::iterator::operator-(){
-    
+typename list<T>::iterator list<T>::iterator::operator-(int steps)const{
+    auto tmp=ptr;
+    for(;steps>0;steps--)ptr=ptr->forward;
+    return list<T>::iterator(tmp);
 }
 
+template<typename T>
+bool list<T>::iterator::operator==(const iterator& tar)const{
+    return ptr==tar.ptr;
+}
+
+template<typename T>
+bool list<T>::iterator::operator!=(const iterator& tar)const{
+    return ptr!=tar.ptr;
+}
 
 }
 

@@ -26,7 +26,7 @@ public:
     T* begin()const;
     T* end()const;
     
-    int size()const;
+    long size()const;
     
     void push_back(const T& tar);
     void pop_back();
@@ -73,11 +73,11 @@ T* vector<T>::begin()const{
 
 template<typename T>
 T* vector<T>::end()const{
-    return tail;
+    return tail+1;
 }
 
 template<typename T>
-int vector<T>::size()const{
+long vector<T>::size()const{
     return tail-data;
 }
 
