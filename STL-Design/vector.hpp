@@ -52,8 +52,9 @@ vector<T>::vector(const vector& tar){
     baseLength=tar.baseLength;
     multiplier=tar.multiplier;
     data=new T[baseLength*multiplier];
-    memcpy(data, tar.data, sizeof(data));
-    spaceTail=data+tar.size();
+    memcpy(data, tar.data, (int)sizeof(data));
+    tail=data+tar.size();
+    spaceTail=data+baseLength*multiplier;
 }
 
 template<typename T>
@@ -64,11 +65,12 @@ vector<T>::~vector(){
 template<typename T>
 void vector<T>::operator=(const vector& tar){
     if(data)delete [] data;
-    data=new T[tar.size()];
-    memcpy(data, tar.data, sizeof(data));
-    spaceTail=data+tar.size();
     baseLength=tar.baseLength;
     multiplier=tar.multiplier;
+    data=new T[baseLength*multiplier];
+    memcpy(data, tar.data, (int)sizeof(data));
+    tail=data+tar.size();
+    spaceTail=data+baseLength*multiplier;
 }
 
 template<typename T>
@@ -88,8 +90,8 @@ long vector<T>::size()const{
 
 template<typename T>
 void vector<T>::push_back(const T& tar){
-    if(tail==spaceTail)reAllocate()
-    *tail=tar;
+    if(tail==spaceTail)reAllocate();
+    (*tail)=tar;
     tail++;
 }
 
@@ -111,8 +113,8 @@ T& vector<T>::operator[](int steps)const{
 template<typename T>
 void vector<T>::reAllocate(){
     multiplier+=1;
-    auto newData=new T[baseLength*multiplier];
-    memcpy(newData, data, sizeof(data));
+    T *newData=new T[baseLength*multiplier];
+    memcpy(newData, data, (int)sizeof(data));
     delete[] data;
     data=newData;
     spaceTail=data+baseLength*multiplier;
