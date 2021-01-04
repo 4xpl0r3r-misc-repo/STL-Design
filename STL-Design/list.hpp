@@ -12,8 +12,6 @@
 
 namespace istd {
 
-
-
 template<typename T>
 class list{
     class listNode;

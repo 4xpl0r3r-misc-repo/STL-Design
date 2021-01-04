@@ -16,7 +16,7 @@ template<typename T>
 class vector{
     class iterator;
 public:
-    vector(int l=0);
+    vector(int l=100);
     //l为初始数组长度
     vector(const vector& tar);
     ~vector();
@@ -33,33 +33,42 @@ public:
     
     T& back()const;
 private:
-    T *data,*tail;//tail是空指针
+    T *data,*tail,*spaceTail;//tail是空数据指针，spaceTail是空指针
+    int baseLength,multiplier=1;
+    void reAllocate();
 };
 
 /*-------------declearation above-------------*/
 
 template<typename T>
 vector<T>::vector(int l){
-    data=new T[l];
-    tail=data+l;
+    baseLength=l;
+    tail=data=new T[baseLength];
+    spaceTail=data+baseLength;
 }
 
 template<typename T>
 vector<T>::vector(const vector& tar){
-    data=new T[tar.size()];
-    tail=data+tar.size();
+    baseLength=tar.baseLength;
+    multiplier=tar.multiplier;
+    data=new T[baseLength*multiplier];
+    memcpy(data, tar.data, sizeof(data));
+    spaceTail=data+tar.size();
 }
 
 template<typename T>
 vector<T>::~vector(){
-    while(data!=tail)
-        delete data;
+    delete [] data;
 }
 
 template<typename T>
 void vector<T>::operator=(const vector& tar){
+    if(data)delete [] data;
     data=new T[tar.size()];
-    tail=data+tar.size();
+    memcpy(data, tar.data, sizeof(data));
+    spaceTail=data+tar.size();
+    baseLength=tar.baseLength;
+    multiplier=tar.multiplier;
 }
 
 template<typename T>
@@ -79,23 +88,35 @@ long vector<T>::size()const{
 
 template<typename T>
 void vector<T>::push_back(const T& tar){
-    tail=new T(tar);
+    if(tail==spaceTail)reAllocate()
+    *tail=tar;
     tail++;
 }
 
 template<typename T>
 void vector<T>::pop_back(){
-    delete tail--;
+    tail--;
 }
 
 template<typename T>
 T& vector<T>::back()const{
-    return *tail;
+    return *(tail-1);
 }
 
 template<typename T>
 T& vector<T>::operator[](int steps)const{
     return *(data+steps);
+}
+
+template<typename T>
+void vector<T>::reAllocate(){
+    multiplier+=1;
+    auto newData=new T[baseLength*multiplier];
+    memcpy(newData, data, sizeof(data));
+    delete[] data;
+    data=newData;
+    spaceTail=data+baseLength*multiplier;
+    tail=data+baseLength*(multiplier-1);
 }
 
 }
