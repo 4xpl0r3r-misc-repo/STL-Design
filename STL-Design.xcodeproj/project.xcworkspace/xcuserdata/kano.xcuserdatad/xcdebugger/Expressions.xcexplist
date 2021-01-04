@@ -3,15 +3,18 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "main:main.cpp">
+         contextName = "istd::list&lt;int&gt;::iterator::operator*():list.hpp">
          <PersistentStrings>
             <PersistentString
-               value = "myV1[0]">
-            </PersistentString>
-            <PersistentString
-               value = "myV1[1]">
+               value = "ptr">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "istd::vector&lt;int&gt;::push_back(int const&amp;):vector.hpp">
+      </ContextState>
+      <ContextState
+         contextName = "main:main.cpp">
       </ContextState>
       <ContextState
          contextName = "istd::list&lt;int&gt;::list(istd::list&lt;int&gt; const&amp;):list.hpp">
@@ -23,9 +26,6 @@
                value = "tar.end()">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "istd::vector&lt;int&gt;::push_back(int const&amp;):vector.hpp">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

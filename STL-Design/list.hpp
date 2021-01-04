@@ -24,7 +24,7 @@ public:
     void operator=(const list& tar);
     T& operator[](int index);
     
-    void insert(const T&,const iterator& it);//插入到后面
+    list<T>::listNode* insert(const T&,iterator& it);//插入到后面
     void erase(iterator& it);
     
     void push_back(const T&);
@@ -66,6 +66,7 @@ public:
     void operator--();
     iterator operator+(int steps)const;
     iterator operator-(int steps)const;
+    list<T>::listNode* getPtr();
 };
 
 /*-------------declearation above-------------*/
@@ -104,14 +105,15 @@ void list<T>::operator=(const list& tar){
 
 template<typename T>
 T& list<T>::operator[](int index){
-    return *(head+1+index);
+    return *(list<T>::iterator(head)+1+index);
 }
 
 template<typename T>
-void list<T>::insert(const T& v,const iterator& it){
-    (*it)->next=new list<T>::listNode(v,(*it),(*it)->next);
-    if((*it)->next->next)
-        (*it)->next->next->forward=(*it)->next;
+typename list<T>::listNode* list<T>::insert(const T& v,iterator& it){
+    it.getPtr()->next=new list<T>::listNode(v,it.getPtr(),it.getPtr()->next);
+    if(it.getPtr()->next->next)
+        it.getPtr()->next->next->forward=it.getPtr()->next;
+    return it.getPtr()->next;
 }
 
 template<typename T>
@@ -126,17 +128,18 @@ void list<T>::erase(iterator& it){
 
 template<typename T>
 void list<T>::push_back(const T& v){
-    insert(v, tail);
+    auto tmp=list<T>::iterator(tail);
+    tail=insert(v, tmp);
 }
 
 template<typename T>
 typename list<T>::iterator list<T>::begin()const{
-    return head+1;
+    return head->next;
 }
 
 template<typename T>
 typename list<T>::iterator list<T>::end()const{
-    return tail;
+    return list<T>::iterator(NULL);
 }
 
 template<typename T>
@@ -222,6 +225,11 @@ bool list<T>::iterator::operator==(const iterator& tar)const{
 template<typename T>
 bool list<T>::iterator::operator!=(const iterator& tar)const{
     return ptr!=tar.ptr;
+}
+
+template<typename T>
+typename list<T>::listNode* list<T>::iterator::getPtr(){
+    return ptr;
 }
 
 }

@@ -12,10 +12,8 @@ using namespace std;
 
 int main(){
     // sort和search使用统一sort函数完成，copy使用运算符重载和构造函数完成
-    istd::vector<int> myV,myV1(1);
-    myV1.push_back(5);
-    cout<<myV1[0]<<myV1[1]<<myV1[2]<<endl;
-    istd::vector<int> myV2(myV1);
     istd::list<int> myL,myL1(myL);
+    myL.push_back(123);
+    istd::list<int> myL2(myL);
     return 0;
 }
