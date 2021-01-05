@@ -10,10 +10,13 @@
 #include "list.hpp"
 #include "deque.hpp"
 #include "stack.hpp"
+#include "multimap.hpp"
+#include "algorithm.hpp"
 using namespace std;
 
 int main(){
-    // sort和search使用统一sort函数完成，copy使用运算符重载和构造函数完成
-    
+    // sort和search使用统一sort函数完成，写在algorithm.hpp
+    // copy使用运算符重载和构造函数完成
+    istd::pair<int, string> myP1(12,"Gooodjob");
     return 0;
 }

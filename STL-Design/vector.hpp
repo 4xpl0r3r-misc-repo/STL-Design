@@ -14,7 +14,6 @@ namespace istd {
 
 template<typename T>
 class vector{
-    class iterator;
 public:
     vector(int l=100);
     //l为初始数组长度
@@ -30,6 +29,8 @@ public:
     
     void push_back(const T& tar);
     void pop_back();
+    
+    void erase(T* it);
     
     T& back()const;
 private:
@@ -119,6 +120,13 @@ void vector<T>::reAllocate(){
     data=newData;
     spaceTail=data+baseLength*multiplier;
     tail=data+baseLength*(multiplier-1);
+}
+
+template<typename T>
+void vector<T>::erase(T* it){
+    for (T* i=tail--; i!=it; i--) {
+        *(i-1)=*i;
+    }
 }
 
 }

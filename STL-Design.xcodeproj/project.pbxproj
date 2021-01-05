@@ -23,8 +23,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		398FEC4225A4B7BD004CA60E /* algorithm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = algorithm.hpp; sourceTree = "<group>"; };
 		3991DBCC25A32B8900283736 /* deque.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = deque.hpp; sourceTree = "<group>"; };
 		3991DBD125A495DC00283736 /* stack.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = stack.hpp; sourceTree = "<group>"; };
+		3991DBD625A49AB500283736 /* multimap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = multimap.hpp; sourceTree = "<group>"; };
 		39980789259F87EC00096B32 /* STL-Design */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "STL-Design"; sourceTree = BUILT_PRODUCTS_DIR; };
 		39980795259F884300096B32 /* list.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = list.hpp; sourceTree = "<group>"; };
 		39980797259F884300096B32 /* vector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vector.hpp; sourceTree = "<group>"; };
@@ -68,6 +70,8 @@
 				3998079F259F8B1300096B32 /* main.cpp */,
 				3991DBCC25A32B8900283736 /* deque.hpp */,
 				3991DBD125A495DC00283736 /* stack.hpp */,
+				3991DBD625A49AB500283736 /* multimap.hpp */,
+				398FEC4225A4B7BD004CA60E /* algorithm.hpp */,
 			);
 			path = "STL-Design";
 			sourceTree = "<group>";
