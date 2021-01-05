@@ -15,6 +15,11 @@
       </ContextState>
       <ContextState
          contextName = "main:main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "myD.front()">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "istd::list&lt;int&gt;::list(istd::list&lt;int&gt; const&amp;):list.hpp">

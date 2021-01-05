@@ -14,10 +14,10 @@ namespace istd {
 
 template<typename T>
 class list{
+public:
     class listNode;
     class iterator;
-    listNode *head,*tail;//head是空节点，不使用
-public:
+    
     list();
     list(const list& tar);
     ~list();
@@ -33,6 +33,8 @@ public:
     iterator end()const;
     
     int size();
+protected:
+    listNode *head,*tail;//head是空节点，不使用
 };
 
 template<typename T>
@@ -118,7 +120,7 @@ typename list<T>::listNode* list<T>::insert(const T& v,iterator& it){
 
 template<typename T>
 void list<T>::erase(iterator& it){
-    auto toErase=*it;
+    auto toErase=it.getPtr();
     if(toErase->forward)
         toErase->forward->next=toErase->next;
     if(toErase->next)
